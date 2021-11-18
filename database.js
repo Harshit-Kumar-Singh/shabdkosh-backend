@@ -1,7 +1,7 @@
 const {MongoClient} = require('mongodb');
 let url = "";
 if(process.env.ISHEROKU){
-    url = "something.com";
+    url = process.env.MONGOLINK;
 }
 else{
     url = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false";
@@ -11,10 +11,10 @@ async function connectToDataBase() {
     
     try{
         await database.connect();
-        console.log('database connected...');
+        console.log('[DataBase Connection][Succesfull]');
     }
     catch(e){
-        console.log('Failed to connect to database...')
+        console.log('[DataBase Connection][Failed]')
     }
 
 }
@@ -26,12 +26,12 @@ async function searchInDatabase(givenWord) {
         Len = 0
     }
     else Len = 1;
-    console.log(result);
+    // console.log(result);
     return result;
 }
 
 async function insertInDatabase(my_data) {
-    console.log('Inside Insert Function');
+    // console.log('Inside Insert Function');
     my_data = my_data + "";
     my_data = JSON.parse(my_data);
     my_word = my_data[0].word;
@@ -46,10 +46,10 @@ async function insertInDatabase(my_data) {
         }
         database.db('dictionaryDatabase').collection('description').insertOne(myObj,(err,res)=>{
             if(err){
-                console.log("Error Occured..");
+                // console.log("Error Occured..");
             }
             else{
-                console.log('1 document Inserted...')
+                // console.log('1 document Inserted...')
             }
         })
         
