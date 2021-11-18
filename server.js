@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 5000;
 
 const server = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Methods: GET, POST, OPTIONS')
   if (req.method == "GET" && req.url == "/"){
     res.end("[Backend is Started]")
   }
